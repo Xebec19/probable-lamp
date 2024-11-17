@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "github.com/Xebec19/probable-lamp/greeting";
+
+package greeting;
+
+service greetingService {
+    rpc SayHello(GreetingRequest) returns (GreetingResponse) {}
+}
+
+message GreetingRequest{
+    string name = 1;
+}
+
+message GreetingResponse {
+    string message = 1;
+}
