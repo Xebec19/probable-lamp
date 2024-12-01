@@ -5,7 +5,7 @@ option go_package = "github.com/Xebec19/probable-lamp/greeting";
 package greeting;
 
 service greetingService {
-    rpc SayHello(GreetingRequest) returns (GreetingResponse) {}
+    rpc SayGreeting(GreetingRequest) returns (GreetingResponse) {}
 }
 
 message GreetingRequest{

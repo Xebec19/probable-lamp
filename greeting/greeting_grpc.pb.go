@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	GreetingService_SayHello_FullMethodName = "/greeting.greetingService/SayHello"
+	GreetingService_SayGreeting_FullMethodName = "/greeting.greetingService/SayGreeting"
 )
 
 // GreetingServiceClient is the client API for GreetingService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GreetingServiceClient interface {
-	SayHello(ctx context.Context, in *GreetingRequest, opts ...grpc.CallOption) (*GreetingResponse, error)
+	SayGreeting(ctx context.Context, in *GreetingRequest, opts ...grpc.CallOption) (*GreetingResponse, error)
 }
 
 type greetingServiceClient struct {
@@ -37,10 +37,10 @@ func NewGreetingServiceClient(cc grpc.ClientConnInterface) GreetingServiceClient
 	return &greetingServiceClient{cc}
 }
 
-func (c *greetingServiceClient) SayHello(ctx context.Context, in *GreetingRequest, opts ...grpc.CallOption) (*GreetingResponse, error) {
+func (c *greetingServiceClient) SayGreeting(ctx context.Context, in *GreetingRequest, opts ...grpc.CallOption) (*GreetingResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GreetingResponse)
-	err := c.cc.Invoke(ctx, GreetingService_SayHello_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, GreetingService_SayGreeting_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (c *greetingServiceClient) SayHello(ctx context.Context, in *GreetingReques
 // All implementations must embed UnimplementedGreetingServiceServer
 // for forward compatibility.
 type GreetingServiceServer interface {
-	SayHello(context.Context, *GreetingRequest) (*GreetingResponse, error)
+	SayGreeting(context.Context, *GreetingRequest) (*GreetingResponse, error)
 	mustEmbedUnimplementedGreetingServiceServer()
 }
 
@@ -62,8 +62,8 @@ type GreetingServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedGreetingServiceServer struct{}
 
-func (UnimplementedGreetingServiceServer) SayHello(context.Context, *GreetingRequest) (*GreetingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SayHello not implemented")
+func (UnimplementedGreetingServiceServer) SayGreeting(context.Context, *GreetingRequest) (*GreetingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SayGreeting not implemented")
 }
 func (UnimplementedGreetingServiceServer) mustEmbedUnimplementedGreetingServiceServer() {}
 func (UnimplementedGreetingServiceServer) testEmbeddedByValue()                         {}
@@ -86,20 +86,20 @@ func RegisterGreetingServiceServer(s grpc.ServiceRegistrar, srv GreetingServiceS
 	s.RegisterService(&GreetingService_ServiceDesc, srv)
 }
 
-func _GreetingService_SayHello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _GreetingService_SayGreeting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GreetingRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GreetingServiceServer).SayHello(ctx, in)
+		return srv.(GreetingServiceServer).SayGreeting(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: GreetingService_SayHello_FullMethodName,
+		FullMethod: GreetingService_SayGreeting_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GreetingServiceServer).SayHello(ctx, req.(*GreetingRequest))
+		return srv.(GreetingServiceServer).SayGreeting(ctx, req.(*GreetingRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -112,8 +112,8 @@ var GreetingService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*GreetingServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SayHello",
-			Handler:    _GreetingService_SayHello_Handler,
+			MethodName: "SayGreeting",
+			Handler:    _GreetingService_SayGreeting_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
